@@ -76,7 +76,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .dc:hover{border-color:var(--accent);color:var(--accent);}
 .dc.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 .dc.clear-btn{background:var(--bg);color:var(--red);border-color:#fca5a5;margin-left:4px;}
+.dept-tag.others{background:#f1f5f9;color:#475569;border-color:#cbd5e1;}
 .dc.clear-btn:hover{background:var(--red-light);}
+/* Dept chip tooltips */
+.dc[data-tip]{position:relative;}
+.dc[data-tip]::after{
+  content:attr(data-tip);
+  position:absolute;
+  bottom:calc(100% + 7px);
+  left:50%;
+  transform:translateX(-50%);
+  background:#1e293b;
+  color:#f8fafc;
+  font-size:10.5px;
+  font-weight:500;
+  line-height:1.45;
+  padding:6px 10px;
+  border-radius:6px;
+  white-space:nowrap;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .15s;
+  z-index:99;
+  box-shadow:0 2px 8px rgba(0,0,0,.18);
+}
+.dc[data-tip]:hover::after{opacity:1;}
+
 
 /* ── Grid ── */
 .main{padding:14px 20px 32px;}
@@ -170,26 +195,27 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
   <div class="filter-label">Filter by GetGo function — highlight relevant grants</div>
   <div class="dept-chips" id="deptChips">
-    <div class="dc" onclick="toggleDept('Brand',this)">Brand</div>
-    <div class="dc" onclick="toggleDept('BizIntel',this)">Biz Intelligence</div>
-    <div class="dc" onclick="toggleDept('CommExp',this)">Community Exp</div>
-    <div class="dc" onclick="toggleDept('Creative',this)">Creative</div>
-    <div class="dc" onclick="toggleDept('Data',this)">Data</div>
-    <div class="dc" onclick="toggleDept('Engineering',this)">Engineering</div>
-    <div class="dc" onclick="toggleDept('Finance',this)">Finance</div>
-    <div class="dc" onclick="toggleDept('FleetOps',this)">Fleet Operations</div>
-    <div class="dc" onclick="toggleDept('FleetQuality',this)">Fleet Quality</div>
-    <div class="dc" onclick="toggleDept('FleetStrategy',this)">Fleet Strategy</div>
-    <div class="dc" onclick="toggleDept('FleetSupport',this)">Fleet Support</div>
-    <div class="dc" onclick="toggleDept('GrowthMktg',this)">Growth Marketing</div>
-    <div class="dc" onclick="toggleDept('Management',this)">Management</div>
-    <div class="dc" onclick="toggleDept('PC',this)">P&amp;C</div>
-    <div class="dc" onclick="toggleDept('ProductDesign',this)">Product Design</div>
-    <div class="dc" onclick="toggleDept('ProductMgmt',this)">Product Mgmt</div>
-    <div class="dc" onclick="toggleDept('Sales',this)">Sales</div>
-    <div class="dc" onclick="toggleDept('StrategicPartnerships',this)">Strategic Partnerships</div>
-    <div class="dc" onclick="toggleDept('Strategy',this)">Strategy</div>
-    <div class="dc" onclick="toggleDept('TrustSafety',this)">Trust &amp; Safety</div>
+    <div class="dc" onclick="toggleDept('Brand',this)" data-tip="Brand managers, brand strategists, comms/PR, social media">Brand</div>
+    <div class="dc" onclick="toggleDept('BizIntel',this)" data-tip="Business analysts, BI analysts, insights & reporting">Biz Intelligence</div>
+    <div class="dc" onclick="toggleDept('CommExp',this)" data-tip="Customer support, customer experience ops, member support">Community Exp</div>
+    <div class="dc" onclick="toggleDept('Creative',this)" data-tip="Graphic designers, videographers, content creators, copywriters">Creative</div>
+    <div class="dc" onclick="toggleDept('Data',this)" data-tip="Data engineers, data scientists, ML engineers, analytics engineers">Data</div>
+    <div class="dc" onclick="toggleDept('Engineering',this)" data-tip="Software engineers, backend/frontend/mobile, DevOps/SRE, platform engineers">Engineering</div>
+    <div class="dc" onclick="toggleDept('Finance',this)" data-tip="Finance managers, accountants, FP&A, treasury">Finance</div>
+    <div class="dc" onclick="toggleDept('FleetOps',this)" data-tip="Field ops, fleet coordinators, vehicle deployment & retrieval">Fleet Operations</div>
+    <div class="dc" onclick="toggleDept('FleetQuality',this)" data-tip="Vehicle inspection, quality control, maintenance coordination">Fleet Quality</div>
+    <div class="dc" onclick="toggleDept('FleetStrategy',this)" data-tip="Fleet planning, vehicle mix strategy, EV transition planning">Fleet Strategy</div>
+    <div class="dc" onclick="toggleDept('FleetSupport',this)" data-tip="Fleet helpdesk, driver/user issue resolution">Fleet Support</div>
+    <div class="dc" onclick="toggleDept('GrowthMktg',this)" data-tip="Performance marketers, growth managers, CRM, paid acquisition">Growth Marketing</div>
+    <div class="dc" onclick="toggleDept('Management',this)" data-tip="C-suite, VPs, department heads, senior leadership">Management</div>
+    <div class="dc" onclick="toggleDept('PC',this)" data-tip="Recruiters, HRBPs, L&D, total rewards">P&amp;C</div>
+    <div class="dc" onclick="toggleDept('ProductDesign',this)" data-tip="Product designers, UX/UI designers, UX writers">Product Design</div>
+    <div class="dc" onclick="toggleDept('ProductMgmt',this)" data-tip="Product managers, product owners">Product Mgmt</div>
+    <div class="dc" onclick="toggleDept('Sales',this)" data-tip="Sales managers, account managers, B2B/corporate sales">Sales</div>
+    <div class="dc" onclick="toggleDept('StrategicPartnerships',this)" data-tip="Partnerships managers, BD, ecosystem & channel partnerships">Strategic Partnerships</div>
+    <div class="dc" onclick="toggleDept('Strategy',this)" data-tip="Corporate strategy, strategy analysts, M&A, strategic biz dev">Strategy</div>
+    <div class="dc" onclick="toggleDept('TrustSafety',this)" data-tip="Trust & safety ops, fraud prevention, policy/compliance">Trust &amp; Safety</div>
+    <div class="dc" onclick="toggleDept('Others',this)" data-tip="Grants with no single owning function — company-wide or cross-functional">Others</div>
     <div class="dc clear-btn" onclick="clearDept()" id="clearDeptBtn" style="display:none">✕ Clear</div>
   </div>
 </div>
@@ -200,12 +226,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="section-hd">AI &amp; Innovation</div>
 <div class="grid">
 
-  <div class="card" data-status="open" data-cat="ai growth" data-depts="Finance,Engineering,Data,Strategy,ProductMgmt">
+  <div class="card" data-status="open" data-cat="ai growth" data-depts="Finance,Engineering,Data">
     <div class="card-top">
       <div><div class="card-title">Enterprise Innovation Scheme (EIS)</div><div class="card-agency">IRAS · Budget 2026</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">400% tax deduction on qualifying R&D, IP registration, and AI expenditure. Budget 2026 added AI spend as a qualifying category for YA2027–2028, capped at S$50K/YA. Companies can also opt for a 20% cash payout on up to S$100K of total qualifying spend (~S$20K max per YA).</p>
+    <p class="card-desc">400% tax deduction on qualifying R&amp;D, IP registration, and AI expenditure. Open to Singapore-incorporated companies with qualifying spend; AI category applies for YA2027–2028, capped at S$50K/YA. Alternatively, elect a 20% cash payout on up to S$100K of total qualifying spend (~S$20K max per YA).</p>
     <div class="meta">
       <div class="mi"><span class="ml">Tax Deduction</span><span class="mv hi">400% on qualifying spend</span></div>
       <div class="mi"><span class="ml">AI Cap</span><span class="mv">S$50,000/YA</span></div>
@@ -216,18 +242,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="dept-tag" data-d="Finance">Finance</span>
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="Data">Data</span>
-      <span class="dept-tag" data-d="Strategy">Strategy</span>
-      <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
     </div>
     <a class="card-link" href="https://www.iras.gov.sg/schemes/disbursement-schemes/enterprise-innovation-scheme-(eis)" target="_blank">IRAS details →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="ai" data-depts="Engineering,Data,ProductMgmt,ProductDesign,BizIntel">
+  <div class="card" data-status="open" data-cat="ai" data-depts="Engineering,Data,ProductMgmt">
     <div class="card-top">
       <div><div class="card-title">AISG 100 Experiments (100E)</div><div class="card-agency">AI Singapore (AISG)</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">AISG co-funds and provides a dedicated AI Engineering Hub team to build and deploy an AI Minimum Viable Product over 6 months. GetGo could apply for fleet demand prediction, dynamic pricing, or community safety AI models. Requires an IT/R&D/Engineering team in Singapore.</p>
+    <p class="card-desc">AISG co-funds and deploys a dedicated AI Engineering Hub team to build and deliver an AI MVP. Eligibility requires an IT/R&amp;D/Engineering team based in Singapore and a cash plus in-kind manpower co-contribution. Co-funding ranges from S$180K–S$330K over 6 months; a shorter 3-month POC track is available.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Co-funding</span><span class="mv hi">S$180K – S$330K</span></div>
       <div class="mi"><span class="ml">Duration</span><span class="mv">6 months (or 3-month POC)</span></div>
@@ -238,18 +262,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="Data">Data</span>
       <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
-      <span class="dept-tag" data-d="ProductDesign">Product Design</span>
-      <span class="dept-tag" data-d="BizIntel">Biz Intelligence</span>
     </div>
     <a class="card-link" href="https://aisingapore.org/innovation/100e/" target="_blank">Apply at AISG →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="ai" data-depts="Engineering,Data,BizIntel,ProductMgmt,Management">
+  <div class="card" data-status="open" data-cat="ai" data-depts="Engineering,Data,ProductMgmt,Management">
     <div class="card-top">
       <div><div class="card-title">National AI Impact Programme (NAIIP)</div><div class="card-agency">IMDA · Budget 2026</div></div>
       <span class="sbadge s-new">★ New 2026</span>
     </div>
-    <p class="card-desc">Targets 10,000 enterprises and 100,000 workers over 3 years to drive measurable AI adoption. Supports AI use-case development, capability building, and enterprise-wide deployment. Relevant for fleet optimisation, safety monitoring, and data-driven ops at GetGo.</p>
+    <p class="card-desc">Drives measurable AI adoption across 10,000 enterprises and 100,000 workers over three years. Covers AI use-case development, workforce capability building, and enterprise-wide deployment. Launched 2026; application process and funding quantum to be confirmed.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Programme Target</span><span class="mv">10,000 enterprises</span></div>
       <div class="mi"><span class="ml">Worker Target</span><span class="mv">100,000 workers</span></div>
@@ -259,19 +281,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-depts">
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="Data">Data</span>
-      <span class="dept-tag" data-d="BizIntel">Biz Intelligence</span>
       <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
       <span class="dept-tag" data-d="Management">Management</span>
     </div>
     <a class="card-link" href="https://www.imda.gov.sg/resources/press-releases-factsheets-and-speeches/factsheets/2026/national-ai-impact-programme" target="_blank">IMDA details →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="ai" data-depts="Engineering,Data,ProductMgmt,BizIntel">
+  <div class="card" data-status="open" data-cat="ai" data-depts="Engineering,Data,ProductMgmt">
     <div class="card-top">
       <div><div class="card-title">Enterprise Compute Initiative (ECI)</div><div class="card-agency">Digital Industry Singapore (DISG) · MOF</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Provides cloud credits and consultancy to develop AI MVPs. S$150M set aside at Budget 2025. Companies get access to major cloud providers' AI tools plus consultancy for change management. Ideal for GetGo's data infrastructure and AI model development.</p>
+    <p class="card-desc">Provides cloud computing credits and change management consultancy to support AI MVP development. Open to Singapore companies; grants access to major cloud providers' AI tools. S$150M set aside; deliverable requirement is a demonstrable AI MVP.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Fund Size</span><span class="mv hi">S$150 million</span></div>
       <div class="mi"><span class="ml">Support Type</span><span class="mv">Cloud credits + consultancy</span></div>
@@ -292,7 +313,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">Champions of AI Programme</div><div class="card-agency">Enterprise Singapore · Budget 2026</div></div>
       <span class="sbadge s-new">★ New 2026</span>
     </div>
-    <p class="card-desc">Supports enterprise-wide AI transformation initiatives, not just point solutions. Designed for companies making a structural commitment to embedding AI across functions — leadership, workflows, and culture. Details on application process to be released mid-2026.</p>
+    <p class="card-desc">Supports structural, enterprise-wide AI transformation — not single point-solutions. Targets companies committing to embed AI across functions, leadership, and culture. Application process and funding quantum to be released mid-2026.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Scope</span><span class="mv">Enterprise-wide AI</span></div>
       <div class="mi"><span class="ml">Focus</span><span class="mv">Leadership + workforce AI</span></div>
@@ -315,12 +336,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="section-hd">Business Growth &amp; Innovation</div>
 <div class="grid">
 
-  <div class="card" data-status="open" data-cat="growth" data-depts="Strategy,Engineering,FleetStrategy,StrategicPartnerships,Management,ProductMgmt">
+  <div class="card" data-status="open" data-cat="growth" data-depts="Strategy,Engineering,FleetStrategy,StrategicPartnerships,Management">
     <div class="card-top">
       <div><div class="card-title">Enterprise Development Grant (EDG)</div><div class="card-agency">Enterprise Singapore</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Flagship grant for business transformation: Core Capabilities, Innovation & Productivity, and Market Access. Covers tech development, process re-engineering, and overseas market entry. Merging into EDGE in H2 2026 — apply now for current projects.</p>
+    <p class="card-desc">Funds business transformation across three pillars: Core Capabilities, Innovation &amp; Productivity, and Market Access. Open to Singapore-registered companies with at least 30% local shareholding. Covers technology development, process re-engineering, and overseas expansion costs. Merging into EDGE in H2 2026 — file current projects before transition.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Funding</span><span class="mv hi">Up to 70% of costs</span></div>
       <div class="mi"><span class="ml">Merging into</span><span class="mv a">EDGE (H2 2026)</span></div>
@@ -332,17 +353,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="FleetStrategy">Fleet Strategy</span>
       <span class="dept-tag" data-d="StrategicPartnerships">Strategic Partnerships</span>
-      <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
     </div>
     <a class="card-link" href="https://www.enterprisesg.gov.sg/financial-support/enterprise-development-grant" target="_blank">Apply →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="growth" data-depts="Engineering,ProductMgmt,Data,ProductDesign,Strategy">
+  <div class="card" data-status="open" data-cat="growth" data-depts="Engineering,ProductMgmt,Data,Strategy">
     <div class="card-top">
       <div><div class="card-title">Startup SG Tech</div><div class="card-agency">Enterprise Singapore</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Funds Proof of Concept and Proof of Value projects to commercialise proprietary tech. GetGo could apply for mobility platform IP, fleet telemetry systems, or safety tech. Rolling applications.</p>
+    <p class="card-desc">Funds Proof of Concept (up to S$250K) and Proof of Value (up to S$500K) projects to commercialise proprietary technology. Open to Singapore-based startups with a demonstrable innovative tech solution. Rolling applications; no fixed deadline.</p>
     <div class="meta">
       <div class="mi"><span class="ml">POC Funding</span><span class="mv hi">Up to S$400,000</span></div>
       <div class="mi"><span class="ml">POV Funding</span><span class="mv hi">Up to S$800,000</span></div>
@@ -353,7 +373,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
       <span class="dept-tag" data-d="Data">Data</span>
-      <span class="dept-tag" data-d="ProductDesign">Product Design</span>
       <span class="dept-tag" data-d="Strategy">Strategy</span>
     </div>
     <a class="card-link" href="https://www.enterprisesg.gov.sg/grow-your-business/startups/startup-sg-tech" target="_blank">Apply →</a>
@@ -364,7 +383,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">Startup SG Equity</div><div class="card-agency">Enterprise Singapore</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Government co-invests alongside qualified third-party investors into Singapore-based startups. S$1B topped up (Budget 2026) for early to growth-stage deep tech. Requires a qualified co-investor.</p>
+    <p class="card-desc">Government co-investment scheme matching qualified third-party investors into Singapore-based tech startups. Requires a qualified co-investor (VC or accredited angel); targets early to growth-stage deep tech companies. S$1B fund topped up at Budget 2026; government co-invests at a defined matching ratio.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Fund Size</span><span class="mv hi">S$1 billion</span></div>
       <div class="mi"><span class="ml">Stage</span><span class="mv">Early to Growth</span></div>
@@ -384,7 +403,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">Private Credit Growth Fund</div><div class="card-agency">Enterprise Singapore · Budget 2026</div></div>
       <span class="sbadge s-new">★ New 2026</span>
     </div>
-    <p class="card-desc">S$1B fund providing private credit (debt) to high-growth startups, as an alternative to equity dilution. For companies that need capital but want to retain ownership. Complements Startup SG Equity.</p>
+    <p class="card-desc">Provides private credit (debt financing) to high-growth Singapore startups as a non-dilutive alternative to equity rounds. For companies needing growth capital without giving up ownership. S$1B fund; structured as a debt instrument repaid over time.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Fund Size</span><span class="mv hi">S$1 billion</span></div>
       <div class="mi"><span class="ml">Type</span><span class="mv">Private credit / Debt</span></div>
@@ -399,12 +418,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <a class="card-link" href="https://www.edb.gov.sg/en/business-insights/insights/singapores-next-growth-chapter-what-international-businesses-should-know-from-budget-2026.html" target="_blank">EDB overview →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="growth" data-depts="Engineering,Data,ProductMgmt,Strategy">
+  <div class="card" data-status="open" data-cat="growth" data-depts="Engineering,Data,Strategy">
     <div class="card-top">
       <div><div class="card-title">NRF Central Gap Fund</div><div class="card-agency">National Research Foundation (NRF)</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Supports translation of research outcomes into commercial products, processes, or services. Rolling submissions. High quantum — suitable for deep tech projects in fleet telematics, safety AI, or EV systems if GetGo can demonstrate research-to-market potential.</p>
+    <p class="card-desc">Funds translation of research outcomes into commercial products, processes, or services with a clear market pathway. High-quantum grant suited to deep tech projects in areas such as fleet telematics, safety AI, or EV systems. Rolling submissions; requires demonstrated research basis and a commercialisation plan.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Max Funding</span><span class="mv hi">Up to S$5,000,000</span></div>
       <div class="mi"><span class="ml">Deadline</span><span class="mv g">Rolling submissions</span></div>
@@ -414,7 +433,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-depts">
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="Data">Data</span>
-      <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
       <span class="dept-tag" data-d="Strategy">Strategy</span>
     </div>
     <a class="card-link" href="https://www.nrf.gov.sg/grants/cgf/" target="_blank">NRF details →</a>
@@ -426,12 +444,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="section-hd">Overseas Expansion &amp; Productivity</div>
 <div class="grid">
 
-  <div class="card" data-status="open" data-cat="growth" data-depts="GrowthMktg,Sales,StrategicPartnerships,FleetStrategy,Strategy">
+  <div class="card" data-status="open" data-cat="growth" data-depts="GrowthMktg,Sales,StrategicPartnerships,Strategy">
     <div class="card-top">
       <div><div class="card-title">Market Readiness Assistance (MRA) Grant</div><div class="card-agency">Enterprise Singapore</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Funds overseas market promotion, business development, and market set-up costs. Enhanced to 70% from 1 April 2026. Merging into EDGE in H2 2026. File now if GetGo has any regional expansion (Malaysia, Thailand, etc.) on the roadmap.</p>
+    <p class="card-desc">Funds overseas market promotion, business development activities, and in-market set-up costs for Singapore SMEs. Support rate enhanced to 70% from 1 April 2026; capped per overseas market activity. Merging into EDGE in H2 2026 — file before transition for any near-term regional expansion.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Funding</span><span class="mv hi">Up to 70% (from Apr 2026)</span></div>
       <div class="mi"><span class="ml">Cap per Market</span><span class="mv">S$100,000</span></div>
@@ -442,7 +460,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="dept-tag" data-d="GrowthMktg">Growth Marketing</span>
       <span class="dept-tag" data-d="Sales">Sales</span>
       <span class="dept-tag" data-d="StrategicPartnerships">Strategic Partnerships</span>
-      <span class="dept-tag" data-d="FleetStrategy">Fleet Strategy</span>
     </div>
     <a class="card-link" href="https://www.enterprisesg.gov.sg/financial-support/market-readiness-assistance-grant" target="_blank">Apply →</a>
   </div>
@@ -452,7 +469,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">Productivity Solutions Grant (PSG)</div><div class="card-agency">Enterprise Singapore / IMDA</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Up to 70% off pre-approved digital solutions (from 1 Apr 2026). Covers CRM, HRMS, cybersecurity, digital marketing, accounting software, and AI-enabled tools. One of the fastest to process (~6 weeks). Merging into EDGE in H2 2026.</p>
+    <p class="card-desc">Co-funds adoption of pre-approved digital productivity solutions including CRM, HRMS, cybersecurity, accounting software, and AI-enabled tools. Open to Singapore SMEs (≤200 employees or ≤S$100M revenue); support rate up to 70% from 1 April 2026. Fast processing (~6 weeks); merging into EDGE in H2 2026.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Funding</span><span class="mv hi">Up to 70%</span></div>
       <div class="mi"><span class="ml">Annual Cap</span><span class="mv">S$30,000/year</span></div>
@@ -475,7 +492,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">EDGE Grant (New Consolidated Framework)</div><div class="card-agency">Enterprise Singapore</div></div>
       <span class="sbadge s-up">◑ Upcoming H2 2026</span>
     </div>
-    <p class="card-desc">Merging EDG, MRA, and PSG into a single streamlined grant. Details TBC — Enterprise Singapore signals a simplified application flow. Companies with near-term needs should apply under current schemes before transition.</p>
+    <p class="card-desc">Consolidates EDG, MRA, and PSG into a single streamlined framework. Signals a simplified application flow with reduced administrative burden. Full details TBC for H2 2026 launch — file near-term applications under existing schemes before the transition.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Launch</span><span class="mv">H2 2026 (TBC)</span></div>
       <div class="mi"><span class="ml">Replaces</span><span class="mv">EDG + MRA + PSG</span></div>
@@ -497,12 +514,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="section-hd">Digital, Platform &amp; Cybersecurity</div>
 <div class="grid">
 
-  <div class="card" data-status="open" data-cat="digital" data-depts="Engineering,ProductMgmt,StrategicPartnerships,BizIntel">
+  <div class="card" data-status="open" data-cat="digital" data-depts="Engineering,ProductMgmt,StrategicPartnerships">
     <div class="card-top">
       <div><div class="card-title">Open Innovation Platform (OIP)</div><div class="card-agency">IMDA</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Matches corporates and startups to co-develop digital solutions. GetGo can participate as a challenge issuer (source tech for fleet or community ops) or as a solution provider for larger transport/logistics players. Rolling challenge calls.</p>
+    <p class="card-desc">Matches corporates and tech providers to co-develop digital solutions via structured innovation challenges. Companies may participate as challenge issuers (sourcing solutions for a business problem) or as solution providers. Rolling challenge calls; shortlisted solutions may receive co-development funding.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Type</span><span class="mv">Challenge-based matching</span></div>
       <div class="mi"><span class="ml">Roles</span><span class="mv">Issuer or Solver</span></div>
@@ -513,17 +530,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
       <span class="dept-tag" data-d="StrategicPartnerships">Strategic Partnerships</span>
-      <span class="dept-tag" data-d="BizIntel">Biz Intelligence</span>
     </div>
     <a class="card-link" href="https://www.imda.gov.sg/how-we-can-help/open-innovation-platform" target="_blank">Browse challenges →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="digital" data-depts="Engineering,TrustSafety,ProductMgmt">
+  <div class="card" data-status="open" data-cat="digital" data-depts="Engineering,TrustSafety">
     <div class="card-top">
       <div><div class="card-title">Digital Trust Centre (DTC-SG) Innovation Grant</div><div class="card-agency">IMDA</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Funds cybersecurity and digital trust innovation projects. Relevant for GetGo's user data handling, vehicle access security, and platform trust infrastructure as the fleet and user base grows.</p>
+    <p class="card-desc">Funds innovation projects in cybersecurity, digital trust, and data protection. Open to Singapore companies developing solutions in user data handling, platform security, or digital infrastructure integrity. Application details and funding quantum on the DTC-SG website.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Focus</span><span class="mv">Digital trust / Cybersec</span></div>
       <div class="mi"><span class="ml">Agency</span><span class="mv">IMDA / DTC-SG</span></div>
@@ -533,7 +549,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-depts">
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="TrustSafety">Trust &amp; Safety</span>
-      <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
     </div>
     <a class="card-link" href="https://www.imda.gov.sg/proposal-submission/dtc-sg-innovation-grant-call" target="_blank">Submit proposal →</a>
   </div>
@@ -545,12 +560,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="section-hd">EV, Fleet &amp; Mobility</div>
 <div class="grid">
 
-  <div class="card" data-status="open" data-cat="ev" data-depts="FleetOps,FleetQuality,FleetStrategy,Finance">
+  <div class="card" data-status="open" data-cat="ev" data-depts="FleetOps,FleetStrategy,Finance">
     <div class="card-top">
       <div><div class="card-title">EV Early Adoption Incentive (EEAI)</div><div class="card-agency">LTA / NEA</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">ARF rebate for EV cars and taxis registered in Singapore. Directly applicable to GetGo's fleet electrification — each EV car registered saves up to S$7,500 in registration fees. Extended to continue supporting vehicle electrification.</p>
+    <p class="card-desc">ARF rebate for EVs registered as cars or taxis in Singapore, directly reducing fleet acquisition cost. Rebate of up to S$7,500 per vehicle; applies to qualifying models on the approved list. Extended to continue supporting national EV adoption.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Rebate (2026)</span><span class="mv hi">45% off ARF</span></div>
       <div class="mi"><span class="ml">Cap per Vehicle</span><span class="mv">S$7,500</span></div>
@@ -559,7 +574,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div class="card-depts">
       <span class="dept-tag" data-d="FleetOps">Fleet Ops</span>
-      <span class="dept-tag" data-d="FleetQuality">Fleet Quality</span>
       <span class="dept-tag" data-d="FleetStrategy">Fleet Strategy</span>
       <span class="dept-tag" data-d="Finance">Finance</span>
     </div>
@@ -571,7 +585,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">Heavy Vehicle Zero Emissions Scheme (HVZES)</div><div class="card-agency">LTA</div></div>
       <span class="sbadge s-open">● Open (from Jan 2026)</span>
     </div>
-    <p class="card-desc">S$40,000 incentive per zero-tailpipe-emission heavy goods vehicle or bus registered from Jan 2026. Relevant if GetGo or its fleet partners operate commercial/heavy vehicles as part of shared mobility or logistics.</p>
+    <p class="card-desc">S$40,000 incentive per zero-tailpipe-emission heavy goods vehicle or bus registered from January 2026. Applicable where fleet partners operate commercial or heavy vehicles as part of shared mobility or logistics. Disbursed upon vehicle registration.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Incentive</span><span class="mv hi">S$40,000 per vehicle</span></div>
       <div class="mi"><span class="ml">Vehicle Type</span><span class="mv">Heavy goods / Buses</span></div>
@@ -591,7 +605,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">Electric Heavy Vehicle Charger Grant (EHVCG)</div><div class="card-agency">LTA</div></div>
       <span class="sbadge s-open">● Open — limited quota</span>
     </div>
-    <p class="card-desc">50% co-funding for private heavy vehicle EV charger installation costs. First 500 chargers qualify. If GetGo is deploying dedicated charging infrastructure for its EV fleet, this is directly applicable — act before quota is exhausted.</p>
+    <p class="card-desc">Co-funds 50% of private heavy vehicle EV charger installation costs for companies building dedicated charging infrastructure. Limited to the first 500 chargers — quota-based, no fixed application deadline. Applicable to private premises only.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Co-funding</span><span class="mv hi">50% of install cost</span></div>
       <div class="mi"><span class="ml">Cap per Charger</span><span class="mv">S$30,000</span></div>
@@ -613,12 +627,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="section-hd">Workforce &amp; Talent</div>
 <div class="grid">
 
-  <div class="card" data-status="open" data-cat="workforce" data-depts="PC,Management,FleetOps,FleetSupport,Strategy">
+  <div class="card" data-status="open" data-cat="workforce" data-depts="PC,Management,FleetOps,FleetSupport">
     <div class="card-top">
       <div><div class="card-title">NTUC CTC Grant</div><div class="card-agency">NTUC / e2i (Trade Union)</div></div>
       <span class="sbadge s-open">● Open — extended to Mar 2028</span>
     </div>
-    <p class="card-desc">Company Training Committee grant for enterprise and workforce transformation. Requires forming a CTC with management and worker representatives. Covers productivity, innovation, job redesign, and wage increases. Strong relevance for GetGo's fleet ops and driver/operator workforce. S$200M committed by government.</p>
+    <p class="card-desc">Funds enterprise and workforce transformation through Company Training Committees (CTCs) jointly formed by management and worker representatives. Covers productivity improvement, job redesign, capability building, and wage enhancement. Requires establishing a CTC; S$200M government commitment.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Funding</span><span class="mv hi">Up to 70% of costs</span></div>
       <div class="mi"><span class="ml">Deadline</span><span class="mv g">Extended to 31 Mar 2028</span></div>
@@ -630,7 +644,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <span class="dept-tag" data-d="Management">Management</span>
       <span class="dept-tag" data-d="FleetOps">Fleet Ops</span>
       <span class="dept-tag" data-d="FleetSupport">Fleet Support</span>
-      <span class="dept-tag" data-d="Strategy">Strategy</span>
     </div>
     <a class="card-link" href="https://www.e2i.com.sg/employers/ntuc-ctc-grant/" target="_blank">NTUC/e2i →</a>
   </div>
@@ -640,7 +653,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">SkillsFuture Enterprise Credit (SFEC)</div><div class="card-agency">SkillsFuture Singapore (SSG)</div></div>
       <span class="sbadge s-watch">⚡ Claim by 30 Nov 2026</span>
     </div>
-    <p class="card-desc">S$10,000 credit per company offsetting up to 90% of eligible training/transformation programme costs. Current tranche expires 30 Nov 2026. A redesigned SFEC with fresh S$10K credit launches 1 Dec 2026 with digital wallet model. Use both tranches strategically.</p>
+    <p class="card-desc">S$10,000 credit per company to offset up to 90% of eligible training and workforce transformation costs. Open to Singapore-registered companies with at least three SC/PR employees. Current tranche expires 30 November 2026; redesigned SFEC with a fresh S$10K digital credit launches 1 December 2026.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Credit</span><span class="mv hi">S$10,000 per company</span></div>
       <div class="mi"><span class="ml">Coverage</span><span class="mv">Up to 90% of costs</span></div>
@@ -658,12 +671,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 
   <!-- CCP: AI Engineer -->
-  <div class="card" data-status="open" data-cat="workforce ai" data-depts="Engineering,Data,BizIntel,ProductMgmt">
+  <div class="card" data-status="open" data-cat="workforce ai" data-depts="Engineering,Data">
     <div class="card-top">
       <div><div class="card-title">CCP — Tech Professionals (AI Engineer)</div><div class="card-agency">WSG / IMDA (TeSA)</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Reskills mid-career individuals into AI engineering roles — model development, MLOps, AI integration. Hire career-switchers into data or platform teams at subsidised cost. Administered under IMDA's TechSkills Accelerator (TeSA).</p>
+    <p class="card-desc">Reskills mid-career individuals into AI engineering roles covering model development, MLOps, and AI integration. Companies hire the career-switcher and receive up to 90% salary support during the reskilling period.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Mode</span><span class="mv">Place-and-Train / JR Reskilling</span></div>
@@ -673,19 +686,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-depts">
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="Data">Data</span>
-      <span class="dept-tag" data-d="BizIntel">Biz Intelligence</span>
-      <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
     </div>
     <a class="card-link" href="https://conversion.mycareersfuture.gov.sg/portal/ProgramDetails.aspx?ProgID=P00001808" target="_blank">Programme details →</a>
   </div>
 
   <!-- CCP: ICTP -->
-  <div class="card" data-status="open" data-cat="workforce" data-depts="Engineering,Data,TrustSafety">
+  <div class="card" data-status="open" data-cat="workforce" data-depts="Engineering,Data">
     <div class="card-top">
       <div><div class="card-title">CCP — Infocomm Technology Professionals (ICTP)</div><div class="card-agency">WSG / IMDA (TeSA)</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Broad tech CCP covering software engineering, data analytics, cybersecurity, and network roles. Allows GetGo to hire career-switchers into engineering or data functions with up to 90% salary support during reskilling.</p>
+    <p class="card-desc">Broad ICT career conversion programme covering software engineering, data analytics, cybersecurity, and network roles. Companies hire the mid-career candidate and receive up to 90% salary support during reskilling. Rolling intake.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Roles Covered</span><span class="mv">SWE, Data, Cybersec, Network</span></div>
@@ -695,18 +706,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-depts">
       <span class="dept-tag" data-d="Engineering">Engineering</span>
       <span class="dept-tag" data-d="Data">Data</span>
-      <span class="dept-tag" data-d="TrustSafety">Trust &amp; Safety</span>
     </div>
     <a class="card-link" href="https://www.imda.gov.sg/how-we-can-help/techskills-accelerator-tesa/career-conversion-programmes" target="_blank">IMDA TeSA CCPs →</a>
   </div>
 
   <!-- CCP: Data Analyst -->
-  <div class="card" data-status="open" data-cat="workforce ai" data-depts="Data,BizIntel,Engineering">
+  <div class="card" data-status="open" data-cat="workforce ai" data-depts="Data,BizIntel">
     <div class="card-top">
       <div><div class="card-title">CCP — Associate Data Analyst</div><div class="card-agency">WSG / Training Providers</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Converts mid-career individuals into data analyst roles. ~4 months full-time (or 9 months part-time). Hire mid-career talent at heavily subsidised cost rather than competing for experienced data analysts at market rates.</p>
+    <p class="card-desc">Converts mid-career individuals into data analyst roles through a structured ~4-month full-time (or 9-month part-time) programme. Companies hire the candidate and receive up to 90% salary support during the conversion period. A cost-effective channel to grow analytics or BI headcount without competing at market rates.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Duration (FT)</span><span class="mv">~4 months</span></div>
@@ -716,18 +726,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-depts">
       <span class="dept-tag" data-d="Data">Data</span>
       <span class="dept-tag" data-d="BizIntel">Biz Intelligence</span>
-      <span class="dept-tag" data-d="Engineering">Engineering</span>
     </div>
     <a class="card-link" href="https://www.wsg.gov.sg/home/employers-industry-partners/workforce-development-job-redesign/career-conversion-programmes-employers" target="_blank">CCP Portal →</a>
   </div>
 
   <!-- CCP: Product Manager -->
-  <div class="card" data-status="open" data-cat="workforce" data-depts="ProductMgmt,Strategy,Engineering">
+  <div class="card" data-status="open" data-cat="workforce" data-depts="ProductMgmt">
     <div class="card-top">
       <div><div class="card-title">CCP — Associate Product Manager</div><div class="card-agency">WSG / Training Providers</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Reskills mid-career individuals into product management. ~3.4 months full-time. Useful for building a junior PM pipeline — bring in career-switchers with up to 90% salary support during the conversion period.</p>
+    <p class="card-desc">Reskills mid-career individuals into product management roles through a ~3.4-month full-time programme. Companies hire the candidate and receive up to 90% salary support during the conversion period. Applicable for building a junior PM pipeline from adjacent functions.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Duration (FT)</span><span class="mv">~3.4 months</span></div>
@@ -736,19 +745,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div class="card-depts">
       <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
-      <span class="dept-tag" data-d="Strategy">Strategy</span>
-      <span class="dept-tag" data-d="Engineering">Engineering</span>
     </div>
     <a class="card-link" href="https://www.wsg.gov.sg/home/employers-industry-partners/workforce-development-job-redesign/career-conversion-programmes-employers" target="_blank">CCP Portal →</a>
   </div>
 
   <!-- CCP: UX Designer -->
-  <div class="card" data-status="open" data-cat="workforce" data-depts="ProductDesign,Creative,ProductMgmt">
+  <div class="card" data-status="open" data-cat="workforce" data-depts="ProductDesign,Creative">
     <div class="card-top">
       <div><div class="card-title">CCP — Associate UI/UX Designer</div><div class="card-agency">WSG / Training Providers</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Converts mid-career individuals into UI/UX design roles. ~3.9 months full-time. Applicable if GetGo's product design team wants to grow headcount with career-switchers at subsidised salary cost during reskilling.</p>
+    <p class="card-desc">Converts mid-career individuals into UI/UX design roles through a ~3.9-month full-time structured programme. Companies hire the candidate and receive up to 90% salary support during reskilling. Applicable for growing product design headcount with career-switchers at subsidised cost.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Duration (FT)</span><span class="mv">~3.9 months</span></div>
@@ -758,18 +765,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-depts">
       <span class="dept-tag" data-d="ProductDesign">Product Design</span>
       <span class="dept-tag" data-d="Creative">Creative</span>
-      <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
     </div>
     <a class="card-link" href="https://www.wsg.gov.sg/home/employers-industry-partners/workforce-development-job-redesign/career-conversion-programmes-employers" target="_blank">CCP Portal →</a>
   </div>
 
   <!-- CCP: Cybersecurity -->
-  <div class="card" data-status="open" data-cat="workforce" data-depts="TrustSafety,Engineering,ProductMgmt">
+  <div class="card" data-status="open" data-cat="workforce" data-depts="Engineering">
     <div class="card-top">
       <div><div class="card-title">CCP — IT &amp; Cybersecurity Risk Specialist</div><div class="card-agency">WSG / Training Providers</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Reskills mid-career individuals into cybersecurity and IT risk roles. ~3.1 months full-time. Hire career-switchers into security operations, risk assessment, or platform integrity roles — directly applicable to Trust &amp; Safety.</p>
+    <p class="card-desc">Reskills mid-career individuals into IT risk and cybersecurity roles through a ~3.1-month full-time programme. Companies hire the candidate and receive up to 90% salary support during conversion. Applicable for security operations, risk assessment, or platform integrity roles.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Duration (FT)</span><span class="mv">~3.1 months</span></div>
@@ -777,9 +783,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="mi"><span class="ml">Role</span><span class="mv">Cybersecurity / IT Risk</span></div>
     </div>
     <div class="card-depts">
-      <span class="dept-tag" data-d="TrustSafety">Trust &amp; Safety</span>
       <span class="dept-tag" data-d="Engineering">Engineering</span>
-      <span class="dept-tag" data-d="ProductMgmt">Product Mgmt</span>
     </div>
     <a class="card-link" href="https://www.wsg.gov.sg/home/employers-industry-partners/workforce-development-job-redesign/career-conversion-programmes-employers" target="_blank">CCP Portal →</a>
   </div>
@@ -790,7 +794,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">CCP — Human Capital Professionals</div><div class="card-agency">WSG</div></div>
       <span class="sbadge s-watch">⚡ Closes 31 Aug 2026</span>
     </div>
-    <p class="card-desc">Reskills PMETs into HR roles — talent acquisition, L&amp;D, HR business partnering, compensation. Directly applicable for GetGo's P&amp;C team. This specific programme closes 31 August 2026 — act now to onboard candidates before the window shuts.</p>
+    <p class="card-desc">Reskills mid-career PMETs into HR roles covering talent acquisition, L&amp;D, HR business partnering, and compensation. Companies hire the candidate and receive up to 90% salary support during reskilling. Closes 31 August 2026 — onboard candidates before the window shuts.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Deadline</span><span class="mv a">31 August 2026</span></div>
@@ -810,7 +814,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">CCP — SME Professionals</div><div class="card-agency">WSG / e2i (NTUC)</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Supports hiring mid-career PMETs into HR, finance, admin, operations, and marketing with a focus on AI and digitalisation. Broad applicability across GetGo's non-tech functions. Administered through e2i (NTUC's employment institute).</p>
+    <p class="card-desc">Supports SMEs hiring mid-career PMETs into HR, finance, admin, operations, and marketing roles, with emphasis on AI and digitalisation. Salary support provided during the structured reskilling period; broad applicability across non-tech functions.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Functions Covered</span><span class="mv">HR, Finance, Mktg, Ops</span></div>
@@ -828,12 +832,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 
   <!-- CCP: Sustainability -->
-  <div class="card" data-status="open" data-cat="workforce sustainability" data-depts="FleetStrategy,Brand,CommExp,GrowthMktg,StrategicPartnerships">
+  <div class="card" data-status="open" data-cat="workforce sustainability" data-depts="FleetStrategy,GrowthMktg,StrategicPartnerships">
     <div class="card-top">
       <div><div class="card-title">CCP — Sustainability Professionals</div><div class="card-agency">WSG / SBF / ATC</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Reskills finance, sales, and marketing professionals into sustainability roles — ESG reporting, green strategy, sustainability operations. Useful for building sustainability capability within Fleet Strategy, Brand, or Growth Marketing as EV adoption accelerates.</p>
+    <p class="card-desc">Reskills mid-career finance, sales, and marketing professionals into sustainability roles covering ESG reporting, green strategy, and sustainability operations. Companies hire the candidate and receive up to 90% salary support during the conversion period.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Source Functions</span><span class="mv">Finance, Sales, Marketing</span></div>
@@ -842,8 +846,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     </div>
     <div class="card-depts">
       <span class="dept-tag" data-d="FleetStrategy">Fleet Strategy</span>
-      <span class="dept-tag" data-d="Brand">Brand</span>
-      <span class="dept-tag" data-d="CommExp">Community Exp</span>
       <span class="dept-tag" data-d="GrowthMktg">Growth Marketing</span>
       <span class="dept-tag" data-d="StrategicPartnerships">Strategic Partnerships</span>
     </div>
@@ -851,12 +853,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   </div>
 
   <!-- CCP: Supply Chain & Logistics -->
-  <div class="card" data-status="open" data-cat="workforce" data-depts="FleetOps,FleetSupport,FleetStrategy,Management">
+  <div class="card" data-status="open" data-cat="workforce" data-depts="FleetOps,FleetStrategy,Management">
     <div class="card-top">
       <div><div class="card-title">CCP — Supply Chain &amp; Logistics Professionals</div><div class="card-agency">WSG</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Converts mid-career individuals into supply chain and logistics roles — operations coordination, planning, fleet/logistics management. Applicable for Fleet Operations and Fleet Support, particularly for vehicle deployment, maintenance scheduling, or vendor coordination roles.</p>
+    <p class="card-desc">Converts mid-career individuals into supply chain and logistics roles including operations coordination, planning, and fleet/logistics management. Companies hire the candidate and receive up to 90% salary support during reskilling. Applicable for Fleet Operations and logistics management hiring.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 90%</span></div>
       <div class="mi"><span class="ml">Roles</span><span class="mv">Ops, Coordination, Planning</span></div>
@@ -872,12 +874,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <a class="card-link" href="https://www.wsg.gov.sg/home/employers-industry-partners/workforce-development-job-redesign/career-conversion-programmes-employers" target="_blank">CCP Portal →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="workforce" data-depts="PC,Management,FleetOps,Strategy">
+  <div class="card" data-status="open" data-cat="workforce" data-depts="PC,Management">
     <div class="card-top">
       <div><div class="card-title">WDG Job Redesign+ (WDG JR+)</div><div class="card-agency">WSG / SkillsFuture Singapore</div></div>
       <span class="sbadge s-new">★ Enhanced Mar 2026</span>
     </div>
-    <p class="card-desc">Enhanced from March 2026 under the Enterprise Workforce Transformation Package (EWTP). Funds workforce transformation and job redesign projects — including consultancy, capability building for HR/line managers, and identifying workforce solutions. Up to 70% funding, capped at S$150K.</p>
+    <p class="card-desc">Funds workforce transformation and job redesign projects covering consultancy, HR and line manager capability building, and workforce solution development. Up to 70% co-funding, capped at S$150K per company. Enhanced under the Enterprise Workforce Transformation Package (EWTP) from March 2026.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Funding</span><span class="mv hi">Up to 70%</span></div>
       <div class="mi"><span class="ml">Cap</span><span class="mv">S$150,000 per enterprise</span></div>
@@ -893,12 +895,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <a class="card-link" href="https://www.wsg.gov.sg/home/employers-industry-partners/workforce-development-job-redesign/wdg-jr" target="_blank">WSG WDG →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="workforce ev" data-depts="FleetOps,FleetSupport,PC">
+  <div class="card" data-status="open" data-cat="workforce ev" data-depts="FleetOps,PC">
     <div class="card-top">
       <div><div class="card-title">CCP for EV Specialists</div><div class="card-agency">WSG / LTA</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Career Conversion Programme specifically for EV Specialists. Companies receive up to 6 months of salary support for employees undergoing structured on-the-job EV training. Directly applicable for upskilling fleet operations and support staff as GetGo's EV fleet grows.</p>
+    <p class="card-desc">Career conversion programme for companies hiring mid-career individuals into EV Specialist roles, with structured on-the-job EV technical training. Companies receive up to 6 months of salary support during the reskilling period. Applicable for building in-house EV technical capability as fleet electrification scales.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Salary Support</span><span class="mv hi">Up to 6 months</span></div>
       <div class="mi"><span class="ml">Programme</span><span class="mv">Structured OJT (EV)</span></div>
@@ -918,7 +920,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div><div class="card-title">Tech@SG Programme</div><div class="card-agency">EDB / Enterprise Singapore</div></div>
       <span class="sbadge s-open">● Open</span>
     </div>
-    <p class="card-desc">Helps fast-growing tech companies obtain Employment Passes for overseas tech talent more quickly. Relevant if GetGo needs to hire specialised engineers (EV tech, ML/AI, platform infra, data science) not readily available in the local market.</p>
+    <p class="card-desc">Expedites Employment Pass applications for overseas tech talent hired by fast-growing Singapore tech companies. Accredited companies benefit from a streamlined MOM review for specialist roles in engineering, ML/AI, platform infrastructure, and data science. Requires demonstrating the role cannot be filled from the local talent pool.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Benefit</span><span class="mv hi">Expedited EP processing</span></div>
       <div class="mi"><span class="ml">Target</span><span class="mv">High-growth tech cos.</span></div>
@@ -939,12 +941,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="section-hd">Sustainability, Community &amp; Environment</div>
 <div class="grid">
 
-  <div class="card" data-status="watch" data-cat="sustainability" data-depts="Brand,CommExp,FleetStrategy,StrategicPartnerships,Creative">
+  <div class="card" data-status="watch" data-cat="sustainability" data-depts="FleetStrategy,StrategicPartnerships">
     <div class="card-top">
       <div><div class="card-title">SG Eco Fund — Main Category</div><div class="card-agency">Ministry of Sustainability and the Environment (MSE)</div></div>
       <span class="sbadge s-watch">⚡ Closes 31 Aug 2026</span>
     </div>
-    <p class="card-desc">Up to S$1M (80% of costs) for large-scale environmental sustainability projects involving the community. GetGo could apply for a community-led green mobility programme — e.g. EV car-sharing in HDB estates, green commuting campaigns, or carbon offset partnerships.</p>
+    <p class="card-desc">Funds large-scale environmental sustainability projects with a community involvement requirement. Open to companies, NGOs, and institutions; up to 80% of qualifying costs, capped at S$1M. Deadline 31 August 2026; project must demonstrate measurable environmental impact.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Funding</span><span class="mv hi">Up to 80% of costs</span></div>
       <div class="mi"><span class="ml">Cap</span><span class="mv">S$1,000,000</span></div>
@@ -952,21 +954,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="mi"><span class="ml">Requirement</span><span class="mv">Community involvement</span></div>
     </div>
     <div class="card-depts">
-      <span class="dept-tag" data-d="Brand">Brand</span>
-      <span class="dept-tag" data-d="CommExp">Community Exp</span>
       <span class="dept-tag" data-d="FleetStrategy">Fleet Strategy</span>
       <span class="dept-tag" data-d="StrategicPartnerships">Strategic Partnerships</span>
-      <span class="dept-tag" data-d="Creative">Creative</span>
     </div>
     <a class="card-link" href="https://www.mse.gov.sg/take-action/sgecofund/" target="_blank">Apply →</a>
   </div>
 
-  <div class="card" data-status="watch" data-cat="sustainability" data-depts="Brand,CommExp,Creative">
+  <div class="card" data-status="watch" data-cat="sustainability" data-depts="Others">
     <div class="card-top">
       <div><div class="card-title">SG Eco Fund — Sprout Category</div><div class="card-agency">Ministry of Sustainability and the Environment (MSE)</div></div>
       <span class="sbadge s-watch">⚡ Closes 31 Aug 2026</span>
     </div>
-    <p class="card-desc">Smaller-scale sustainability projects up to S$30K. Suitable for community engagement pilots — e.g. green driving awareness campaigns, community EV ride-sharing events, or eco-education initiatives. Lower barrier to entry than the Main Category.</p>
+    <p class="card-desc">Funds smaller-scale environmental sustainability projects and pilots, with a lower barrier to entry than the Main Category. Open to companies and community groups; covers up to S$30K per project. Deadline 31 August 2026; suitable for awareness campaigns, community events, or green mobility pilots.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Funding</span><span class="mv hi">Up to S$30,000</span></div>
       <div class="mi"><span class="ml">Deadline</span><span class="mv a">31 August 2026</span></div>
@@ -974,19 +973,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="mi"><span class="ml">Eligibility</span><span class="mv">Open to companies</span></div>
     </div>
     <div class="card-depts">
-      <span class="dept-tag" data-d="Brand">Brand</span>
-      <span class="dept-tag" data-d="CommExp">Community Exp</span>
-      <span class="dept-tag" data-d="Creative">Creative</span>
+      <span class="dept-tag others" data-d="Others">Others</span>
     </div>
     <a class="card-link" href="https://www.mse.gov.sg/take-action/sgecofund/funding-support/" target="_blank">Apply →</a>
   </div>
 
-  <div class="card" data-status="open" data-cat="sustainability" data-depts="FleetStrategy,StrategicPartnerships,Brand,Engineering">
+  <div class="card" data-status="open" data-cat="sustainability" data-depts="FleetStrategy,StrategicPartnerships,Engineering">
     <div class="card-top">
       <div><div class="card-title">Temasek Foundation Liveability Challenge</div><div class="card-agency">Temasek Foundation / A*STAR (Private Foundation)</div></div>
       <span class="sbadge s-open">● Open (9th edition, 2026)</span>
     </div>
-    <p class="card-desc">Global competition for disruptive decarbonisation and cooling innovations. 9th edition supported by Temasek Foundation + A*STAR — doubles catalytic funding. GetGo could pitch EV car-sharing as a decarbonisation solution for urban mobility, targeting the grant + development funding track.</p>
+    <p class="card-desc">Global innovation competition for disruptive decarbonisation and urban cooling solutions. Winners receive catalytic funding and development support; 9th edition doubles the funding commitment. Open to companies with scalable solutions addressing decarbonisation or urban liveability.</p>
     <div class="meta">
       <div class="mi"><span class="ml">Grant Funding</span><span class="mv hi">S$2 million</span></div>
       <div class="mi"><span class="ml">Dev Funding (A*STAR)</span><span class="mv hi">S$2 million</span></div>
@@ -996,7 +993,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="card-depts">
       <span class="dept-tag" data-d="FleetStrategy">Fleet Strategy</span>
       <span class="dept-tag" data-d="StrategicPartnerships">Strategic Partnerships</span>
-      <span class="dept-tag" data-d="Brand">Brand</span>
       <span class="dept-tag" data-d="Engineering">Engineering</span>
     </div>
     <a class="card-link" href="https://www.theliveabilitychallenge.org/" target="_blank">The Liveability Challenge →</a>
